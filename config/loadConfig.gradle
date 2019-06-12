@@ -1,0 +1,10 @@
+import groovy.json.JsonSlurper
+
+def slurper = new JsonSlurper()
+Map configResult = slurper.parse(new File(rootProject.projectDir.absolutePath+'/config/config.json'))
+println(new File(rootProject.projectDir.absolutePath+'/config/config.json').text)
+
+Set<Map.Entry<String,Object>> result = configResult.entrySet()
+result.each {
+    project.ext.set(it.key,it.value)
+}

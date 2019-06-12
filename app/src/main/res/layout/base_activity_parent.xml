@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!--状态度栏高度适配View-->
+    <View
+        android:id="@+id/top_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/transparent" />
+
+    <!--标题栏-->
+    <com.zenfer.demo.widget.TitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:iconDrawable="@mipmap/nav_ic_back"
+        app:titleBackground="@color/white"
+        app:titleContentColor="@color/black"
+        app:titleTextSize="@dimen/sx16" />
+    <!--标题底部阴影或者分割线-->
+    <View
+        android:id="@+id/title_divider_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/divider_line_color"
+        android:visibility="gone" />
+
+    <!--内容区-->
+    <LinearLayout
+        android:id="@+id/root_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    </LinearLayout>
+</LinearLayout>

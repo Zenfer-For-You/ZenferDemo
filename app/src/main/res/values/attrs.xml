@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="TitleBar">
+        <attr name="titleValue" format="reference|string" />
+        <attr name="titleContentColor" format="reference|color" />
+        <attr name="titleTextSize" format="reference|dimension" />
+        <attr name="titleBackground" format="reference|color" />
+        <attr name="iconDrawable" format="reference" />
+        <attr name="showRightButton" format="boolean" />
+    </declare-styleable>
+
+    <!-- 水波纹 -->
+    <declare-styleable name="MaterialRippleLayout">
+        <attr name="mrl_rippleColor" format="color" localization="suggested" />
+        <attr name="mrl_rippleDimension" format="dimension" localization="suggested" />
+        <attr name="mrl_rippleOverlay" format="boolean" localization="suggested" />
+        <attr name="mrl_rippleAlpha" format="float" localization="suggested" />
+        <attr name="mrl_rippleDuration" format="integer" localization="suggested" />
+        <attr name="mrl_rippleFadeDuration" format="integer" localization="suggested" />
+        <attr name="mrl_rippleHover" format="boolean" localization="suggested" />
+        <attr name="mrl_rippleBackground" format="color" localization="suggested" />
+        <attr name="mrl_rippleDelayClick" format="boolean" localization="suggested" />
+        <attr name="mrl_ripplePersistent" format="boolean" localization="suggested" />
+        <attr name="mrl_rippleInAdapter" format="boolean" localization="suggested" />
+        <attr name="mrl_rippleRoundedCorners" format="dimension" localization="suggested" />
+    </declare-styleable>
+
+    <declare-styleable name="EmptyView">
+        <attr name="title_text" format="string" />
+        <attr name="detail_text" format="string" />
+        <attr name="btn_text" format="string" />
+    </declare-styleable>
+
+    <!--带下划线的TextView-->
+    <declare-styleable name="UnderlinedTextView">
+        <attr name="ud_text_content" format="string" /><!-- 文本内容 -->
+        <attr name="ud_text_color" format="reference|color" /><!-- 文字颜色 -->
+        <attr name="ud_text_size" format="reference|integer" /><!-- 文字大小 -->
+        <attr name="ud_color" format="reference|color" /><!-- 下划线颜色 -->
+        <attr name="ud_leading" format="dimension" /><!--下划线与文字的间距 -->
+        <attr name="ud_stroke_with" format="dimension" /><!--下划线长度 -->
+    </declare-styleable>
+</resources>

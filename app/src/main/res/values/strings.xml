@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Zenfer</string>
+
+    <string name="comm_network_error">网络异常，加载失败</string>
+    <string name="comm_click_to_reload">点击屏幕，重新加载</string>
+    <string name="comm_no_net_error">暂无网络，请检查网络连接</string>
+    <string name="comm_empty_view">暂无数据 囧！</string>
+    <string name="comm_ui_back_home">返回首页</string>
+<string name  = "comm_test">hahhaa </string>
+</resources>
