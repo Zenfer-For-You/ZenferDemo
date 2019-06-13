@@ -1,6 +1,7 @@
 package com.zenfer.demo.network.framwork;
 
 import android.net.ParseException;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.google.gson.JsonParseException;
@@ -35,7 +36,7 @@ public class NetWorkCallBack {
      */
     private String tag;
 
-    public NetWorkCallBack(BaseCallBack callBack) {
+    public NetWorkCallBack(@Nullable BaseCallBack callBack) {
         this.callBack = callBack;
     }
 

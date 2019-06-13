@@ -1,10 +1,11 @@
 package com.zenfer.demo.network.framwork;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import com.zenfer.demo.network.api.Api;
 import com.zenfer.demo.network.api.ApiEnum;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -24,7 +25,7 @@ public class NetUtil {
      *
      * @param baseUrl 域名
      */
-    public static void init(@Nonnull String baseUrl) {
+    public static void init(@NonNull String baseUrl) {
         Network.BASE_URL = baseUrl;
     }
 
@@ -40,7 +41,7 @@ public class NetUtil {
             netWorkCallBack.setTag(tag);
             addObservable(Api.get(tag, params), netWorkCallBack.getNetWorkSubscriber());
         } catch (Exception e) {
-            e.printStackTrace();
+            netWorkCallBack.getNetWorkSubscriber().onError(e);
         }
     }
 
