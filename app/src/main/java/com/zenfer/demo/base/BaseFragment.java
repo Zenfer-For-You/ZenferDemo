@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.zenfer.demo.R;
+import com.zenfer.demo.util.ReflectInstance;
 import com.zenfer.demo.util.eventbus.EventBusManager;
 import com.zenfer.demo.util.eventbus.EventBusParams;
 import com.zenfer.demo.widget.emptyview.EmptyViewHelper;
@@ -18,9 +19,6 @@ import com.zenfer.demo.widget.emptyview.OnEmptyViewClickListener;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -32,7 +30,7 @@ import butterknife.Unbinder;
  * @author Zenfer
  * @date 2018/9/18 15:36
  */
-public abstract class BaseFragment extends Fragment implements OnEmptyViewClickListener {
+public abstract class BaseFragment<P extends BasePresenter> extends Fragment implements OnEmptyViewClickListener {
 
     /**
      * 根布局
@@ -54,7 +52,7 @@ public abstract class BaseFragment extends Fragment implements OnEmptyViewClickL
     /**
      * 用于解决持久类中View实例化之后无法被清除，从而导致内存泄露
      */
-    private BasePresenter mBasePresenter;
+    private P mPresenter;
 
     @Nullable
     @Override
@@ -65,6 +63,7 @@ public abstract class BaseFragment extends Fragment implements OnEmptyViewClickL
     }
 
     private void initView(View view) {
+        mPresenter = ReflectInstance.newTypeInstance(getClass(),0,this);
         mRootLayout = view.findViewById(R.id.root_layout);
         initContent();
         mButterKnife = ButterKnife.bind(this, view);
@@ -82,31 +81,6 @@ public abstract class BaseFragment extends Fragment implements OnEmptyViewClickL
         // 初始化情感图
         mEmptyViewHelper = new EmptyViewHelper(getContext());
         mEmptyViewHelper.bind(mRootLayout);
-    }
-
-    /**
-     * 创建持久类
-     *
-     * @param <T>
-     * @param clazz
-     * @return
-     */
-    public <T> T createPresenter(Class<T> clazz) {
-        Constructor constructor = null;
-        try {
-            constructor = clazz.getConstructor(IBaseView.class);
-            mBasePresenter = (BasePresenter) constructor.newInstance(this);
-            return (T) mBasePresenter;
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (java.lang.InstantiationException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     /**
@@ -185,9 +159,9 @@ public abstract class BaseFragment extends Fragment implements OnEmptyViewClickL
             mButterKnife.unbind();
             mButterKnife = null;
         }
-        if (mBasePresenter != null) {
-            mBasePresenter.onDestroy();
-            mBasePresenter = null;
+        if (mPresenter != null) {
+            mPresenter.onDestroy();
+            mPresenter = null;
         }
         onEnd("");
         EventBusManager.unRegister(this);

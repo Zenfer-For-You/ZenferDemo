@@ -1,11 +1,11 @@
 package com.zenfer.demo.base;
 
+import android.os.Bundle;
 import android.view.View;
 
+import com.zenfer.demo.util.ReflectInstance;
 import com.zenfer.demo.widget.emptyview.OnEmptyViewClickListener;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 
 /**
  * 余时保 activity 基类
@@ -13,30 +13,40 @@ import java.lang.reflect.InvocationTargetException;
  * @author Zenfer
  * @date 2019/6/11 18:36
  */
-public abstract class BaseYsbActivity extends BaseActivity implements OnEmptyViewClickListener {
+public abstract class BaseYsbActivity<P extends BasePresenter> extends BaseActivity implements OnEmptyViewClickListener {
     /**
      * 用于解决持久类中View实例化之后无法被清除，从而导致内存泄露
      */
-    private BasePresenter mBasePresenter;
+    private P mPresenter;
 
-    /**
-     * 创建持久类
-     */
-    public <T> T createPresenter(Class<T> clazz) {
-        try {
-            Constructor constructor = clazz.getConstructor(IBaseView.class);
-            mBasePresenter = (BasePresenter) constructor.newInstance(this);
-            return (T) mBasePresenter;
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        return null;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        mPresenter = ReflectInstance.newTypeInstance(getClass(),0,this);
+        super.onCreate(savedInstanceState);
+    }
+
+//    /**
+//     * 创建持久类
+//     */
+//    public <T> T createPresenter(Class<T> clazz) {
+//        try {
+//            Constructor constructor = clazz.getConstructor(IBaseView.class);
+//            mPresenter = (BasePresenter) constructor.newInstance(this);
+//            return (T) mPresenter;
+//        } catch (NoSuchMethodException e) {
+//            e.printStackTrace();
+//        } catch (IllegalAccessException e) {
+//            e.printStackTrace();
+//        } catch (InstantiationException e) {
+//            e.printStackTrace();
+//        } catch (InvocationTargetException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
+
+    public P getPresenter() {
+        return mPresenter;
     }
 
     /**
@@ -91,9 +101,9 @@ public abstract class BaseYsbActivity extends BaseActivity implements OnEmptyVie
 
     @Override
     public void onDestroy() {
-        if (mBasePresenter != null) {
-            mBasePresenter.onDestroy();
-            mBasePresenter = null;
+        if (mPresenter != null) {
+            mPresenter.onDestroy();
+            mPresenter = null;
         }
         super.onDestroy();
     }

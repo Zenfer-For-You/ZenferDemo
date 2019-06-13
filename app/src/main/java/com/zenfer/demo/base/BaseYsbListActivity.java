@@ -21,7 +21,8 @@ import java.util.List;
 
 import static com.zenfer.demo.Constants.ParamKey.PAGE_SIZE;
 
-public abstract class BaseYsbListActivity<T> extends BaseYsbActivity implements SwipeRefreshLayout.OnRefreshListener {
+
+public abstract class BaseYsbListActivity<P extends BasePresenter, T> extends BaseYsbActivity<P> implements SwipeRefreshLayout.OnRefreshListener {
 
     protected RecyclerView mRecyclerList;
 

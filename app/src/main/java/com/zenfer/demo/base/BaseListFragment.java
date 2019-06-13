@@ -27,7 +27,7 @@ import static com.zenfer.demo.Constants.ParamKey.PAGE_SIZE;
  * @author Zenfer
  * @date 2018/7/5
  */
-public abstract class BaseListFragment<T> extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+public abstract class BaseListFragment<P extends BasePresenter, T> extends BaseFragment<P> implements SwipeRefreshLayout.OnRefreshListener {
 
     protected RecyclerView mRecyclerList;
 

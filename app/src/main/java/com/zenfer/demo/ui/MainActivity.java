@@ -15,16 +15,14 @@ import com.zenfer.demo.util.ResourceUtil;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseYsbActivity implements IBaseView {
+public class MainActivity extends BaseYsbActivity<MainPresenter> implements IBaseView {
 
     @BindView(R.id.tv_test)
     TextView mTvTest;
 
-    private MainPresenter presenter;
 
     @Override
     public void initView(Bundle savedInstanceState, LinearLayout rootView) {
-        presenter = createPresenter(MainPresenter.class);
     }
 
     @Override
@@ -39,7 +37,7 @@ public class MainActivity extends BaseYsbActivity implements IBaseView {
 
     @OnClick({R.id.tv_test})
     void onClick(View v) {
-        presenter.request();
+        getPresenter().request();
     }
 
     @Override
