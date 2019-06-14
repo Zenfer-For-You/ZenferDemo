@@ -37,7 +37,7 @@ public class MainActivity extends BaseYsbActivity<MainPresenter> implements IBas
 
     @OnClick({R.id.tv_test})
     void onClick(View v) {
-        getPresenter().upload();
+        getPresenter().download();
     }
 
     @Override

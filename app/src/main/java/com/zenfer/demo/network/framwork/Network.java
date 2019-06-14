@@ -2,7 +2,6 @@ package com.zenfer.demo.network.framwork;
 
 
 import com.google.gson.Gson;
-import com.zenfer.demo.network.download.DownloadProgressInterceptor;
 import com.zenfer.demo.network.download.DownloadProgressListener;
 import com.zenfer.demo.network.download.DownloadService;
 import com.zenfer.demo.network.framwork.Intercepter.AppendHeaderParamInterceptorImpl;
@@ -106,9 +105,8 @@ public class Network {
                 .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .addInterceptor(new AppendHeaderParamInterceptorImpl())
-                .addInterceptor(new DownloadProgressInterceptor(listener))
+//                .addInterceptor(new DownloadProgressInterceptor(listener))
                 .addNetworkInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-                .addInterceptor(new LogInterceptorImpl())
                 .build();
     }
 
