@@ -1,5 +1,7 @@
 package com.zenfer.demo.network.framwork;
 
+import android.support.annotation.Nullable;
+
 import com.blankj.utilcode.util.GsonUtils;
 import com.google.gson.JsonObject;
 
@@ -7,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.Nullable;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;

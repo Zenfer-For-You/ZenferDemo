@@ -24,9 +24,9 @@ public class Api {
     public static Observable<NetWordResult> get(@ApiEnum String tag, Object params) throws Exception {
         switch (tag) {
             case ApiEnum.CODE_LOGIN:
-                return Network.getApi().codeLogin(RequestBodyUtil.createMapRequestBody(params));
+                return Network.getInstance().getApi(ApiService.class).codeLogin(RequestBodyUtil.createMapRequestBody(params));
             case ApiEnum.CONFIG:
-                return Network.getApi().config(RequestBodyUtil.createMapParams(params));
+                return Network.getInstance().getApi(ApiService.class).config(RequestBodyUtil.createMapParams(params));
             default:
                 throw new Exception("can not match the request tag \"" + tag + "\"");
         }

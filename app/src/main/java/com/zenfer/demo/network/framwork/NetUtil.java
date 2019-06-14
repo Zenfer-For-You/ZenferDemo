@@ -1,16 +1,11 @@
 package com.zenfer.demo.network.framwork;
 
+
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.zenfer.demo.network.api.Api;
 import com.zenfer.demo.network.api.ApiEnum;
-
-
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * 网络请求工具类
@@ -37,20 +32,11 @@ public class NetUtil {
      * @param netWorkCallBack 回调
      */
     public static void excute(@Nullable Object params, @ApiEnum String tag, NetWorkCallBack netWorkCallBack) {
+        netWorkCallBack.setTag(tag);
         try {
-            netWorkCallBack.setTag(tag);
-            addObservable(Api.get(tag, params), netWorkCallBack.getNetWorkSubscriber());
+            Network.addObservable(Api.get(tag, params), netWorkCallBack.getNetWorkSubscriber());
         } catch (Exception e) {
             netWorkCallBack.getNetWorkSubscriber().onError(e);
         }
-    }
-
-    /**
-     * 生成Rxjava链式调度
-     */
-    private static <M> void addObservable(Observable<M> observable, Subscriber<M> subscriber) {
-        RxUtils.getInstance().addSubscription(observable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber));
     }
 }
