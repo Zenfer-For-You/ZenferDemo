@@ -18,7 +18,7 @@ import rx.functions.Action1;
  * @author Zenfer
  * @date 2019/6/14 9:38
  */
-public class ProgressRequestBody extends RequestBody {
+public class UploadProgressRequestBody extends RequestBody {
     /**
      * 实际的待包装请求体
      */
@@ -32,7 +32,7 @@ public class ProgressRequestBody extends RequestBody {
      */
     private BufferedSink bufferedSink;
 
-    public ProgressRequestBody(RequestBody requestBody, UploadProgressListener progressListener) {
+    public UploadProgressRequestBody(RequestBody requestBody, UploadProgressListener progressListener) {
         this.requestBody = requestBody;
         this.progressListener = progressListener;
     }

@@ -8,7 +8,7 @@ import com.zenfer.demo.network.api.NetWorkRequest;
 import com.zenfer.demo.network.framwork.NetWordException;
 import com.zenfer.demo.network.framwork.NetWordResult;
 import com.zenfer.demo.network.framwork.NetWorkCallBack;
-import com.zenfer.demo.network.upload.HttpFormDataParams;
+import com.zenfer.demo.network.upload.UploadFormDataParams;
 import com.zenfer.demo.network.upload.NetworkUploadCallBack;
 import com.zenfer.demo.network.upload.UploadProgressListener;
 import com.zenfer.demo.network.upload.UploadUtil;
@@ -76,7 +76,7 @@ public class MainPresenter extends BasePresenter<IBaseView> {
 
             }
         });
-        List<HttpFormDataParams> datas = UploadUtil.requestImagePost(img);
+        List<UploadFormDataParams> datas = UploadUtil.requestImagePost(img);
         UploadUtil.upload(datas, callBack);
     }
 

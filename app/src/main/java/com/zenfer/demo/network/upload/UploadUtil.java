@@ -27,12 +27,12 @@ public class UploadUtil {
      *
      * @param imagePaths 图片路径集合
      */
-    public static List<HttpFormDataParams> requestImagePost(final List<String> imagePaths) {
-        List<HttpFormDataParams> dataParamsList = new ArrayList<>();
+    public static List<UploadFormDataParams> requestImagePost(final List<String> imagePaths) {
+        List<UploadFormDataParams> dataParamsList = new ArrayList<>();
         for (String imagePath : imagePaths) {
             File file = new File(imagePath);
             if (file.exists()) {
-                dataParamsList.add(new HttpFormDataParams("headImg", file.getName(),
+                dataParamsList.add(new UploadFormDataParams("headImg", file.getName(),
                         RequestBody.create(MediaType.parse("multipart/form-data"), file)));
             } else {
                 return null;
@@ -47,7 +47,7 @@ public class UploadUtil {
      * @param dataParams file数据
      * @param callBack   回调
      */
-    public static void upload(@Nullable List<HttpFormDataParams> dataParams, NetworkUploadCallBack callBack) {
+    public static void upload(@Nullable List<UploadFormDataParams> dataParams, NetworkUploadCallBack callBack) {
         if (ListUtils.isEmpty(dataParams)) {
             return;
         }
@@ -61,9 +61,9 @@ public class UploadUtil {
      * @param listener 上传监听 主要是 监听 progress
      * @return  MultipartBody
      */
-    private static MultipartBody filesToMultipartBody(List<HttpFormDataParams> mDataParamsList, UploadProgressListener listener) {
+    private static MultipartBody filesToMultipartBody(List<UploadFormDataParams> mDataParamsList, UploadProgressListener listener) {
         MultipartBody.Builder builder = new MultipartBody.Builder();
-        for (HttpFormDataParams params : mDataParamsList) {
+        for (UploadFormDataParams params : mDataParamsList) {
             if (TextUtils.isEmpty(params.getName())) {
                 continue;
             }
@@ -71,7 +71,7 @@ public class UploadUtil {
                 builder.addFormDataPart(params.getName(), params.getValue());
                 continue;
             }
-            builder.addFormDataPart(params.getName(), params.getValue(), new ProgressRequestBody(params.getBody(), listener));
+            builder.addFormDataPart(params.getName(), params.getValue(), new UploadProgressRequestBody(params.getBody(), listener));
         }
         builder.setType(MultipartBody.FORM);
         return builder.build();

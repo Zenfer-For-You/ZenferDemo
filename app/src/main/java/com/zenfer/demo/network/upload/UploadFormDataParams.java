@@ -8,7 +8,7 @@ import okhttp3.RequestBody;
  * @author Zenfer
  * @date 2019/6/13 16:06
  */
-public class HttpFormDataParams {
+public class UploadFormDataParams {
     /**
      * 字段名
      */
@@ -22,12 +22,12 @@ public class HttpFormDataParams {
      */
     private RequestBody body;
 
-    public HttpFormDataParams(String name, String value) {
+    public UploadFormDataParams(String name, String value) {
         this.name = name;
         this.value = value;
     }
 
-    public HttpFormDataParams(String name, String value, RequestBody body) {
+    public UploadFormDataParams(String name, String value, RequestBody body) {
         this.name = name;
         this.value = value;
         this.body = body;

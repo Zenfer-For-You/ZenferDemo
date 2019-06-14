@@ -2,6 +2,9 @@ package com.zenfer.demo.network.framwork;
 
 
 import com.google.gson.Gson;
+import com.zenfer.demo.network.download.DownloadProgressInterceptor;
+import com.zenfer.demo.network.download.DownloadProgressListener;
+import com.zenfer.demo.network.download.DownloadService;
 import com.zenfer.demo.network.framwork.Intercepter.AppendHeaderParamInterceptorImpl;
 import com.zenfer.demo.network.framwork.Intercepter.LogInterceptorImpl;
 
@@ -62,6 +65,16 @@ public class Network {
         return service;
     }
 
+    /**
+     * 获取下载的服务
+     *
+     * @param listener 下载监听
+     * @return DownloadService
+     */
+    public DownloadService getApi(DownloadProgressListener listener) {
+        return getDownloadRetrofit(BASE_URL, getDownloadClient(listener)).create(DownloadService.class);
+    }
+
     private static Retrofit getRetrofit(String baseUrl) {
         return new Retrofit.Builder()
                 .client(new OkHttpClient.Builder()
@@ -78,11 +91,34 @@ public class Network {
                 .build();
     }
 
+    private static Retrofit getDownloadRetrofit(String baseUrl, OkHttpClient client) {
+        return new Retrofit.Builder()
+                .client(client)
+                .baseUrl(baseUrl)
+                .addConverterFactory(GSON_CONVERTER_FACTORY)
+                .addCallAdapterFactory(RX_JAVA_CALL_ADAPTER_FACTORY)
+                .build();
+    }
+
+    private static OkHttpClient getDownloadClient(DownloadProgressListener listener) {
+        return new OkHttpClient.Builder()
+                .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+                .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+                .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+                .addInterceptor(new AppendHeaderParamInterceptorImpl())
+                .addInterceptor(new DownloadProgressInterceptor(listener))
+                .addNetworkInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                .addInterceptor(new LogInterceptorImpl())
+                .build();
+    }
+
     /**
      * 生成Rxjava链式调度
      */
     public static <T> void addObservable(Observable<T> observable, Subscriber<T> subscriber) {
-        RxUtils.getInstance().addSubscription(observable.subscribeOn(Schedulers.io())
+        RxUtils.getInstance().addSubscription(observable
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber));
     }
