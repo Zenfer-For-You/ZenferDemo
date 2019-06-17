@@ -31,10 +31,6 @@ public class DownloadUtil {
     public static void download(String url, String path, String filename, final NetworkDownloadCallBack callBack) {
 
         final File file = new File(path, filename);
-        File fileParent = file.getParentFile();
-        if (!fileParent.exists()) {
-            fileParent.mkdirs();
-        }
         RxUtils.getInstance().addSubscription(
                 Network.getInstance().getApi(callBack.getListener()).download(url)
                         .subscribeOn(Schedulers.io())
