@@ -3,9 +3,9 @@ package com.zenfer.demo;
 import android.support.multidex.MultiDexApplication;
 
 import com.zenfer.demo.network.framwork.NetUtil;
+import com.zenfer.demo.util.AutoSizeUtil;
 import com.zenfer.demo.util.LeakCanaryUtil;
 import com.zenfer.demo.util.ResourceUtil;
-import com.zenfer.demo.util.ScreenUtil;
 
 /**
  * Application
@@ -30,9 +30,11 @@ public class MainApplication extends MultiDexApplication {
     private void init() {
         INSTANCE = this;
         //初始化网络请求
-        NetUtil.init(BuildConfig.SERVER_URL);
+        NetUtil.init(BuildConfig.SERVER_URL, BuildConfig.DEBUG);
+        //资源工具类初始化
         ResourceUtil.init(this);
-        ScreenUtil.initAppDensity(this);
+        //屏幕适配
+        AutoSizeUtil.initAutoSize(this);
 
         if (BuildConfig.DEBUG) {
             LeakCanaryUtil.setupLeakCanary(this);

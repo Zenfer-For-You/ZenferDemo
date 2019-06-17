@@ -1,11 +1,10 @@
 package com.zenfer.demo.network.framwork;
 
 
+import android.text.TextUtils;
+
 import com.google.gson.Gson;
-import com.zenfer.demo.network.download.DownloadProgressListener;
-import com.zenfer.demo.network.download.DownloadService;
 import com.zenfer.demo.network.framwork.Intercepter.AppendHeaderParamInterceptorImpl;
-import com.zenfer.demo.network.framwork.Intercepter.LogInterceptorImpl;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -36,7 +35,7 @@ public class Network {
     }
 
     private static class Holder {
-        public static final Network NETWORK = new Network();
+        static final Network NETWORK = new Network();
     }
 
     private Map<String, Object> servicesMap = new ConcurrentHashMap<>();
@@ -44,8 +43,11 @@ public class Network {
     /**
      * Base URL
      */
-    public static String BASE_URL;
-
+    private String baseUrl;
+    /**
+     * 是否为 debug 模式
+     */
+    private boolean isDebug = false;
     /**
      * 超时时长
      */
@@ -54,60 +56,42 @@ public class Network {
     private static final Converter.Factory GSON_CONVERTER_FACTORY = GsonConverterFactory.create(new Gson());
     private static final CallAdapter.Factory RX_JAVA_CALL_ADAPTER_FACTORY = RxJavaCallAdapterFactory.create();
 
+    public void init(String baseUrl, boolean isDebug) {
+        this.baseUrl = baseUrl;
+        this.isDebug = isDebug;
+    }
 
     public <T> T getApi(Class<T> clazz) {
+        if (TextUtils.isEmpty(baseUrl)) {
+            throw new IllegalStateException("请初始化网络请求框架");
+        }
         T service = (T) servicesMap.get(clazz.getCanonicalName());
         if (service == null) {
-            service = getRetrofit(BASE_URL).create(clazz);
+            service = getRetrofit(baseUrl).create(clazz);
             servicesMap.put(clazz.getCanonicalName(), service);
         }
         return service;
     }
 
-    /**
-     * 获取下载的服务
-     *
-     * @param listener 下载监听
-     * @return DownloadService
-     */
-    public DownloadService getApi(DownloadProgressListener listener) {
-        return getDownloadRetrofit(BASE_URL, getDownloadClient(listener)).create(DownloadService.class);
-    }
-
-    private static Retrofit getRetrofit(String baseUrl) {
+    private Retrofit getRetrofit(String baseUrl) {
         return new Retrofit.Builder()
-                .client(new OkHttpClient.Builder()
-                        .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
-                        .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
-                        .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
-                        .addInterceptor(new AppendHeaderParamInterceptorImpl())
-                        .addNetworkInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-                        .addInterceptor(new LogInterceptorImpl())
-                        .build())
+                .client(getOkhttpClient(isDebug))
                 .baseUrl(baseUrl)
                 .addConverterFactory(GSON_CONVERTER_FACTORY)
                 .addCallAdapterFactory(RX_JAVA_CALL_ADAPTER_FACTORY)
                 .build();
     }
 
-    private static Retrofit getDownloadRetrofit(String baseUrl, OkHttpClient client) {
-        return new Retrofit.Builder()
-                .client(client)
-                .baseUrl(baseUrl)
-                .addConverterFactory(GSON_CONVERTER_FACTORY)
-                .addCallAdapterFactory(RX_JAVA_CALL_ADAPTER_FACTORY)
-                .build();
-    }
-
-    private static OkHttpClient getDownloadClient(DownloadProgressListener listener) {
-        return new OkHttpClient.Builder()
+    private OkHttpClient getOkhttpClient(boolean isDebug) {
+        OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
-                .addInterceptor(new AppendHeaderParamInterceptorImpl())
-//                .addInterceptor(new DownloadProgressInterceptor(listener))
-                .addNetworkInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-                .build();
+                .addInterceptor(new AppendHeaderParamInterceptorImpl());
+        if (isDebug) {
+            builder.addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
+        }
+        return builder.build();
     }
 
     /**

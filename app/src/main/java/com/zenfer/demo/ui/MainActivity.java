@@ -17,7 +17,7 @@ import butterknife.OnClick;
 
 public class MainActivity extends BaseYsbActivity<MainPresenter> implements IBaseView {
 
-    @BindView(R.id.tv_test)
+    @BindView(R.id.tv_request)
     TextView mTvTest;
 
 
@@ -35,9 +35,21 @@ public class MainActivity extends BaseYsbActivity<MainPresenter> implements IBas
         return R.layout.activity_main;
     }
 
-    @OnClick({R.id.tv_test})
+    @OnClick({R.id.tv_request, R.id.tv_upload, R.id.tv_download})
     void onClick(View v) {
-        getPresenter().download();
+        switch (v.getId()) {
+            case R.id.tv_request:
+                getPresenter().request();
+                break;
+            case R.id.tv_upload:
+                getPresenter().upload();
+                break;
+            case R.id.tv_download:
+                getPresenter().download();
+                break;
+            default:
+        }
+
     }
 
     @Override

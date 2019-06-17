@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/title_bar_layout"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/sx45" >
+    android:layout_height="45dp" >
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -15,16 +15,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:paddingRight="@dimen/sx10"
+            android:paddingRight="10dp"
             app:mrl_rippleColor="@color/white"
             app:mrl_rippleInAdapter="false"
             app:mrl_rippleOverlay="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/sx45"
-                android:layout_marginLeft="@dimen/sx15"
-                android:layout_marginRight="@dimen/sx8"
+                android:layout_height="45dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="8dp"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -42,7 +42,7 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="-10dp"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/sx14"
+                    android:textSize="14dp"
                     android:visibility="gone" />
             </LinearLayout>
         </com.zenfer.demo.widget.titlebar.MaterialRippleLayout>
@@ -59,8 +59,8 @@
 
             <ImageView
                 android:id="@+id/common_close_icon"
-                android:layout_width="@dimen/sx45"
-                android:layout_height="@dimen/sx45"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_gravity="start|center"
                 android:scaleType="center"
                 android:src="@mipmap/nav_ic_back" />
@@ -74,24 +74,24 @@
         android:layout_gravity="center"
         android:ellipsize="end"
         android:maxEms="10"
-        android:paddingLeft="@dimen/sx20"
-        android:paddingRight="@dimen/sx20"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:singleLine="true"
         android:textColor="@color/black"
-        android:textSize="@dimen/sx18" />
+        android:textSize="18dp" />
 
     <FrameLayout
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/sx45"
+        android:layout_height="45dp"
         android:layout_gravity="end|center"
-        android:layout_marginRight="@dimen/sx15">
+        android:layout_marginRight="15dp">
 
         <com.zenfer.demo.widget.titlebar.AlphaTextView
             android:id="@+id/right_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textSize="@dimen/sx14"
+            android:textSize="14dp"
             android:textColor="@color/white"
             android:visibility="gone" />
 

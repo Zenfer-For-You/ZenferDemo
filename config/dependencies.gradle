@@ -36,13 +36,14 @@ ext {
             eventbus           : "org.greenrobot:eventbus:$eventbusVersion",
             arouter_api        : "com.alibaba:arouter-api:$arouter_api",
             arouter_compiler   : "com.alibaba:arouter-compiler:$arouter_compiler",
-            utilcode          : "com.blankj:utilcode:$utilcode",// 工具类集合 https://github.com/Blankj/AndroidUtilCode
+            utilcode           : "com.blankj:utilcode:$utilcode",// 工具类集合 https://github.com/Blankj/AndroidUtilCode
             xxpermissions      : "com.hjq:xxpermissions:$xxpermissions",// 权限工具 https://github.com/getActivity/XXPermissions
 
             // 底层相关
             leakcanary         : "com.squareup.leakcanary:leakcanary-android:$leakcanary",// 内存泄漏检查
             multidex           : "com.android.support:multidex:$multidex",
             logger             : "com.orhanobut:logger:$loggerVersion",// 日志工具 https://github.com/orhanobut/logger
+            autosize           : "me.jessyan:autosize:$autosize",// 今日头条屏幕适配方案终极版 https://github.com/JessYanCoding/AndroidAutoSize
     ]
 
     dependenciesExt = [
@@ -78,8 +79,9 @@ ext {
 
             frameworkDependencies : [
                     supportDependencies.multidex,
-                    supportDependencies.leakcanary,//内存泄漏检查
+                    supportDependencies.leakcanary,
                     supportDependencies.logger,
+                    supportDependencies.autosize,
             ],
 
             widgetDependencies    : [

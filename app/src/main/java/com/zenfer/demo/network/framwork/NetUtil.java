@@ -20,8 +20,8 @@ public class NetUtil {
      *
      * @param baseUrl 域名
      */
-    public static void init(@NonNull String baseUrl) {
-        Network.BASE_URL = baseUrl;
+    public static void init(@NonNull String baseUrl, boolean isDebug) {
+        Network.getInstance().init(baseUrl, isDebug);
     }
 
     /**

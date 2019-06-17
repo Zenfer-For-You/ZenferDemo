@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ConvertUtils;
 import com.zenfer.demo.R;
 import com.zenfer.demo.util.DoubleClickUtil;
 import com.zenfer.demo.util.LogUtil;
@@ -71,7 +72,7 @@ public class TitleBar extends LinearLayout {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TitleBar);
         mIconDrawable = a.getDrawable(R.styleable.TitleBar_iconDrawable);
         mTitleValue = a.getString(R.styleable.TitleBar_titleValue);
-        mTitleTextSize = a.getDimensionPixelSize(R.styleable.TitleBar_titleTextSize, ResourceUtil.getDimen(R.dimen.sx18));
+        mTitleTextSize = a.getDimensionPixelSize(R.styleable.TitleBar_titleTextSize, ConvertUtils.dp2px(18));
         mTitleTextColor = a.getColor(R.styleable.TitleBar_titleContentColor, Color.WHITE);
         mBackground = a.getDrawable(R.styleable.TitleBar_titleBackground);
         mShowRightButton = a.getBoolean(R.styleable.TitleBar_showRightButton, false);
@@ -160,7 +161,7 @@ public class TitleBar extends LinearLayout {
             mBackButton.setPadding(0, 0, 0, 0);
             return;
         }
-        mBackButton.setPadding(0, 0, ResourceUtil.getDimen(R.dimen.sx20), 0);
+        mBackButton.setPadding(0, 0, ConvertUtils.dp2px(20), 0);
         mCloseButton.setVisibility(GONE);
     }
 
@@ -203,7 +204,7 @@ public class TitleBar extends LinearLayout {
 
     public void setTitleTextSize(int dimen) {
         if (dimen <= 0) {
-            mTitleTextSize = ResourceUtil.getDimen(R.dimen.sx15);
+            mTitleTextSize =ConvertUtils.dp2px(15);
         }
         mTitleTextSize = dimen;
         setTitleView();

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.blankj.utilcode.util.ConvertUtils;
 import com.zenfer.demo.R;
 import com.zenfer.demo.util.ResourceUtil;
 
@@ -143,7 +144,7 @@ public class EmptyViewHelper {
         actionView.setText(content);
         actionView.setUnderLineColor(color);
         actionView.setTextColor(ResourceUtil.getColor(color));
-        actionView.setTextSize(TypedValue.COMPLEX_UNIT_PX, ResourceUtil.getDimen(R.dimen.sx16));
+        actionView.setTextSize(TypedValue.COMPLEX_UNIT_PX, ConvertUtils.dp2px(16));
         // 设置居中
         actionView.setGravity(Gravity.CENTER_HORIZONTAL);
         mEmptyView.setActionView(actionView, onClickListener);

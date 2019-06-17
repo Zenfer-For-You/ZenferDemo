@@ -32,7 +32,7 @@ public class DownloadUtil {
 
         final File file = new File(path, filename);
         RxUtils.getInstance().addSubscription(
-                Network.getInstance().getApi(callBack.getListener()).download(url)
+                Network.getInstance().getApi(DownloadService.class).download(url)
                         .subscribeOn(Schedulers.io())
                         .unsubscribeOn(Schedulers.io())
                         .map(new Func1<ResponseBody, File>() {

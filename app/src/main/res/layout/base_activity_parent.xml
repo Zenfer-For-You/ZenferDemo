@@ -20,7 +20,7 @@
         app:iconDrawable="@mipmap/nav_ic_back"
         app:titleBackground="@color/white"
         app:titleContentColor="@color/black"
-        app:titleTextSize="@dimen/sx16" />
+        app:titleTextSize="16dp" />
     <!--标题底部阴影或者分割线-->
     <View
         android:id="@+id/title_divider_line"

@@ -14,7 +14,7 @@
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:visibility="visible"
-        android:paddingTop="@dimen/sx100">
+        android:paddingTop="100dp">
 
         <ImageView
             android:id="@+id/empty_image"
@@ -25,10 +25,10 @@
             android:id="@+id/empty_view_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/sx16"
+            android:layout_marginBottom="16dp"
             android:gravity="center_horizontal"
             android:textColor="@color/black"
-            android:textSize="@dimen/sx16"
+            android:textSize="16dp"
             android:textStyle="bold"
             android:visibility="visible" />
 
@@ -36,9 +36,9 @@
             android:id="@+id/empty_view_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/sx16"
+            android:layout_marginBottom="16dp"
             android:gravity="center_horizontal"
-            android:textSize="@dimen/sx14"
+            android:textSize="14dp"
             android:visibility="visible" />
 
         <LinearLayout
@@ -71,17 +71,17 @@
             style="@android:style/Widget.Holo.Light.ProgressBar.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/sx50"
-            android:padding="@dimen/sx10" />
+            android:layout_marginBottom="50dp"
+            android:padding="10dp" />
 
         <TextView
             android:id="@+id/empty_view_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/sx50"
+            android:layout_marginBottom="50dp"
             android:gravity="center"
             android:textColor="@color/black"
-            android:textSize="@dimen/sx16"
+            android:textSize="16dp"
             tools:text="加载中..." />
     </LinearLayout>
 </RelativeLayout>
